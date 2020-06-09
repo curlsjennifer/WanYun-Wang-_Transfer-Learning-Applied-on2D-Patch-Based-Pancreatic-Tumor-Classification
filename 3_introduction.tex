@@ -1,0 +1,22 @@
+\chapter{Introduction}
+\section{Background}
+((3))\\
+With the revival of neural networks owing to the development of parallel computing technique, the medical imaging field has witnessed a new generation of computer-aided systems that show incredible performance. A Survey on Deep Learning in Medical Image Analysis \cite{litjens2017survey}surveyed the use of deep learning techniques such as image classification, object detection, segmentation, registration. 
+
+
+
+
+
+
+
+
+Pancreatic cancer is the second most frequent cancer of digestive system which caused 45,750 deaths in the United States in 2019\cite{siegel2019cancer}. The research team of my thesis advisor Dr. Wang started working on pancreatic cancer since 2018 and had developed 2D patch-based tumor classification model based on patient data from National Taiwan University Hospital(NTUH). But when we tested our model using data from other data sources, the performance of the classification model is worse than the previous results. (In this thesis, we mainly use the area under receiver operating characteristic curve (AUC) to evaluate the performance.) Our goal is to improve the performance of model working on external data using fine-tuning technique so that we can apply our model to patient data from different datasets and different countries in the future.
+
+\section{Study objectives}
+((Study objectives and hypotheses))\\
+Consider a source dataset and an external dataset. Source dataset has sufficient data to train a model, and external dataset doesn't have sufficient data to train a workable model. The purpose of the thesis is
+\begin{itemize}
+    \item Use source data and target data to build a model that has high performance on target test set.
+    \item Evaluate how many patients are needed to improve the performance.
+    %
+\end{itemize}

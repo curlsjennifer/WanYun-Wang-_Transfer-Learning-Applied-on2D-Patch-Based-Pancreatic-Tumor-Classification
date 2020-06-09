@@ -1,0 +1,60 @@
+\chapter{Results}
+In order to validate the performance, I use 10-folder cross validation to do all the experiments .
+
+\section{Data*}
+\subsection{Flow of participants or cases}
+((Flow of participants or cases, using a diagram to indicate inclusion and exclusion)) \\
+
+\subsection{Demographic and clinical characteristics of cases}
+((Demographic and clinical characteristics of cases in each partition
+Model performance)) \\
+
+\section{Model performance}
+\subsection{Performance metrics for optimal model}
+((Performance metrics for optimal model(s) on all data partitions)) \\
+
+\subsubsection{Basic Validation}
+In this experiment, the AUC of experiments increases as the number of training data grows. But the AUC is not high enough for practical use.
+\begin{figure}[H]
+    \hfil
+    \begin{minipage}[t]{0.9\textwidth}
+        \includegraphics[width=\textwidth]{fig/Ａ.png}
+        \caption{\label{fig:parallel1} AUC for Basic Validation}
+    \end{minipage}
+    \hfil
+\end{figure}
+\subsubsection{Mix Source Data and Target Data}
+In this experiment, with the help of source data, the AUC of experiments increases as the number of target data grows. The performance increases most when the number of target data is small.
+\begin{figure}[H]
+    \hfil
+    \begin{minipage}[t]{0.9\textwidth}
+        \includegraphics[width=\textwidth]{fig/Ｂ.png}
+        \caption{\label{fig:parallel1} AUC for Mix Source Data and Target Data}
+    \end{minipage}
+    \hfil
+\end{figure}
+\subsubsection{Fine Tuning}
+In this experiment, I try two methods: fine-tuning with no layer fix and with 3 layers fixed. The AUC of experiments increases as the number of target data grows. The performance of 3 layer-fixed experiment is slightly better than 0 layer-fixed experiment.
+\begin{figure}[H]
+    \hfil
+    \begin{minipage}[t]{0.9\textwidth}
+        \includegraphics[width=\textwidth]{fig/Ｃ.png}
+        \caption{\label{fig:parallel1} AUC for Fine Tuning (fix 0 layer)}
+    \end{minipage}
+    \hfil
+\end{figure}
+\begin{figure}[H]
+    \hfil
+    \begin{minipage}[t]{0.9\textwidth}
+        \includegraphics[width=\textwidth]{fig/Ｄ.png}
+        \caption{\label{fig:parallel1} AUC for Fine Tuning (fix 3 layer)}
+    \end{minipage}
+    \hfil
+\end{figure}
+
+\subsection{Estimates of diagnostic accuracy and their precision*}
+((Estimates of diagnostic accuracy and their precision (such as 95 percent confidence intervals))) \\
+\subsection{Failure analysis*}
+((Failure analysis of incorrectly classified cases)) \\
+
+

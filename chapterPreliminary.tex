@@ -1,0 +1,69 @@
+\chapter{Preliminary}
+
+\section{Definition and Notation}
+\section*{This is different}
+    %==========================
+    \subsection*{Examples}
+    \label{sec:examples}
+    %==========================
+    
+    \begin{description}
+        %\item[Shortest Vector Problem(SVP)] Given a lattice basis $\bm{B}$ $\in{\mathbb{R}^{m\times n}}$, find the shortest nonzero vector in \latticeb{B}.
+        %
+        \item[Problem] Descriptions
+        %
+    \end{description}
+    
+    %=====================
+    \paragraph{Problem Property}
+    %=====================
+
+\begin{algorithm}
+    \label{tab:alg}
+    \centering
+    \begin{algorithmic}[H]
+        \Require{ basis {B}($\vec{b}_1,...,\vec{b}_n$), PrunedBound $R_1^2 \leq R_2^2 \leq ... \leq R_n^2$ }
+        \Ensure{The coefficients $(x_1,...,x_n)$ of the basis satisfying the Pruned Bound}
+        \State  Compute Gram-Schmidt orthogonalization $\mu$ of basis B  
+        \State    $\sigma \leftarrow (0)_{(n+1) \times n}$
+        \While{$true$}
+            \State $\rho_k = \rho_{k+1} + (v_k - c_k)^2 \dot \| {b_k^*} \|^2$ 
+            \If{ $\rho_k \leq R_{n+i-k}^2$}
+                \If{ $k = 1$} 
+                    \State return $(v_1,...,v_n)$ 
+                \Else  
+                    \State $k \leftarrow k - 1$
+                    \State $r_{k-1} \leftarrow max(r_{k-1}, r_{k})$
+                    \For{$i = r_k$ downto $k+1$}
+                        \State $\sigma_{i,k} \leftarrow \sigma_{i+1,k} + v_k \mu_{i,k}$ 
+                    \EndFor
+                    \State $c_k \leftarrow -\sigma_{k+1,k}$ 
+                    \State $v_k \leftarrow \lfloor c_k \rceil$; $w_k = 1$;
+                \EndIf
+            \Else
+                \State $k \leftarrow k+1 $
+            \EndIf 
+        \EndWhile
+    \end{algorithmic}
+    \vspace*{1em}
+    \caption{This is an example of algorithm.}
+\end{algorithm}
+
+
+
+This is an example of equations.
+
+\begin{equation*}
+\| {\sum_{t=1}^{n} u_t \vec{b}_t} \| = \min_{x\in \mathbb{Z}^{n}}  \| \sum_{t=1}^{n} x_t \vec{b}_t \|
+\end{equation*}
+we replace all $\vec{b}_{t}$ by their orthogonalization, i.e., $\vec{b}_{t} = \vec{b}_{t}^{*} + \sum_{j=1}^{t-1} \mu_{t,j} \vec{b}_{j}^{*}$ and get a degree.
+
+
+
+
+
+
+
+
+
+
