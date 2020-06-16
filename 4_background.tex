@@ -1,64 +1,33 @@
 \chapter{Methods}
-
+ 
 \section{Study Design}
 \subsection{Prospective or retrospective study}
-((Prospective or retrospective study)) \\
-
-
-One important property of CNNs is the “transferability”. Due to the efforts of the doctors in NTUH, we have sufficiently large pancreatic dataset. We want to use this precious data to help train models for other pancreatic dataset. It deeply relies on the "transferability” of CNN, in other words, transfer-learning. 
-
-But there are multiple transfer-learning methods, why we choose fine-tuning? According to this thesis Learning without Forgetting \cite{li2017learning}, the authors compare four methods, including joint training, feature extraction, learning without forgetting and  fine-tuning. The fine-tuning method performs well in external data, and also has excellent testing efficiency. Another thesis in 2017 applies fine-tuning on ultrasound images and has an obvious enhance on model performance. \cite{chi2017thyroid}
-
-Since 2018, our team continues collecting new external data and labeling the images. If we can select patient data that provides information most, the model performance increases more for certain amounts of labeled data. \cite{zhou2017fine} provides AIFT method to do data selection. 
-
-The thesis applies fine-tuning model on pancreatic images, also data selection will be applied. 
+((5)) \\
+XXX 
 
 \subsection{Study goal*}
-((Study goal, such as model creation, exploratory study, feasibility study, noninferiority trial)) \\
+((6)) \\
 \section{Data}
 \subsection{Data Source}
-((Data sources)) \\
+((7)) \\
 This thesis applies three datasets. All of them are pancreatic CT images.
 \begin{itemize}
-    \item {\bf National Taiwan University Hospital (ntuh, source data)} \\including both healthy(400) and tumor(400) CT scans. 
-    \item {\bf Medical Segmentation Decathlon\cite{simpson2019large} (msd, target data)}\\ including only tumor(281) CT scans. 
-    \item {\bf The Cancer Imaging Archive (tcia, target data)}\\ including only healthy(82) CT scans. 
+    \item {\bf National Taiwan University Hospital (ntuh, source data)} \\including both healthy (400) and tumor (400) CT scans. 
+    \item {\bf Medical Segmentation Decathlon\cite{simpson2019large} (msd, target data)}\\ including only tumor (281) CT scans. 
+    \item {\bf The Cancer Imaging Archive (tcia, target data)}\\ including only healthy (82) CT scans. 
 \end{itemize}
 
 \subsection{Eligibility criteria*}
-((Eligibility criteria: how, where, and when potentially eligible participants or studies were identified (eg,
-symptoms, results from previous tests, inclusion in registry, patient-care setting, location, dates))) \\
+((8 ?)) \\
 
 \subsection{Data Preprocessing}
-((Data preprocessing steps)) \\
+((9? )) \\
 All CT images that contained the pancreas or PC from an individual subject were manually labeled for further model training/validation and testing using an open source software (3D Slicer version 4.8.1). 
-Since the pancreas bordered multiple organs/structures and PCs often had an indistinct border with the surrounding tissue, there are inter-observer differences regarding the exact extent of the pancreas and the cancer tumor. Therefore, the labeled pancreas and tumor on the images were checked by the radiologists before further processing and analysis steps. The window width and window level were fixed as 250 Hounsfield unit (HU) and 75 HU, respectively. The images were normalized to [0, 1] by linear interpolation, and the portions that were neither pancreas nor tumor were excluded from further analysis. The images were then cropped into square sub-regions (i.e. 50 X 50 patches) using the moving window method on the axial (x-y) plane, starting from the top-left corner and ended at the bottom-right corner. Moving distance was set as half of the patch dimension to generate overlapping patches in order to increase the variation and size of training data. The patches which contained PC were labeled as cancerous, whereas patches that contained only non-cancerous pancreatic parenchyma were labeled as non-cancerous.
+Since the pancreas bordered multiple organs/structures and PCs often had an indistinct border with the surrounding tissue, there are inter-observer differences regarding the exact extent of the pancreas and the cancer tumor. Therefore, the labeled pancreas and tumor on the images were checked by the radiologists before further processing and analysis steps. The window width and window level were fixed as 250 Hounsfield unit (HU) and 75 HU, respectively. The images were normalized to [0, 1] by linear interpolation, and the portions that were neither pancreas nor tumor were excluded from further analysis. The images were then cropped into square sub-regions (i.e. 50 $ \times $ 50 patches) using the moving window method on the axial (x-y) plane, starting from the top-left corner and ended at the bottom-right corner. Moving distance was set as half of the patch dimension to generate overlapping patches in order to increase the variation and size of training data. The patches which contained PC were labeled as cancerous, whereas patches that contained only non-cancerous pancreatic parenchyma were labeled as non-cancerous.
+((8-10 ignore, 11, 12, 13))
+XXX data size?
 
-\subsection{Selection of data subsets(ignore)}
-((Selection of data subsets, if applicable(ignore)))
-\subsection{Definitions of data elements(ignore)}
-((Definitions of data elements, with references to common data elements(ignore)))
-\subsection{De-identification Methods*}
-((De-identification methods))
-\subsection{Missing Data*}
-((How missing data were handled(ignore)))
-
-
-
-\section{Ground Truth*}
-\subsection{Reference Standard}
-((Definition of ground truth reference standard, in sufficient detail to allow replication))
-\subsection{Rationale for choosing the reference standard}
-((Rationale for choosing the reference standard (if alternatives exist))) \\
-\subsection{Source of Ground Truth Annotations}
-((Source of ground truth annotations; qualifications and preparation of annotators)) \\
-\subsection{Annotation tools}
-((Annotation tools)) \\
-\subsection{Measurement of inter and intrarater variability}
-((Measurement of inter and intrarater variability; methods to mitigate variability and/or resolve discrepancies)) \\
-
-
-
+((8-10 ignore, 11, 12, 13))
 \section{Data Partitions*}
 \subsection{Sample Size and How It Was Determined}
 ((Intended sample size and how it was determined))
@@ -123,8 +92,8 @@ dense 3 (Dense)                                      & (None, 1)                
 ((Details of training approach, including data augmentation, hyperparameters, number of models trained)) \\
 \subsection{Method of selecting the final model}
 ((Method of selecting the final model)) \\
-\subsection{Ensembling techniques, if applicable(ignore)}
-((Ensembling techniques, if applicable(ignore))) \\
+\subsection{Ensembling techniques, if applicable (ignore)}
+((Ensembling techniques, if applicable (ignore))) \\
 
 \section{Evaluation}
 This chapter consists of three experiments: basic validation, mix data training and fine tuning. To better observing the result, this thesis use cross validation to distribute training/validation/testing set. 
@@ -154,7 +123,7 @@ target test~ & 0        & 0        & 8               & 28              \\
 \end{table}
 
 \begin{table}[H]
-\centering
+\centering 
 \caption{training/validation/testing set (B) (10 folder)}
 \begin{tabular}{|l|l|l|l|l|} 
 \hline
