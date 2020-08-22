@@ -1,5 +1,5 @@
 \chapter{Experiments}
-There are 8 experiments in this thesis which can be classified into four parts: basic models, mix data model, fine-tuning models, and increment fine-tuning models. In the first part, I train models in order to compare with other experiments and choose some parameters. In mix-data part, I try to train models using both source and target data. When it comes to fine-tuning part, I use target data to fine-tune source model. Finally, I try to add target data gradually into fine-tuned model.
+There are 8 experiments in this thesis which can be classified into four parts: basic models, mixed data model, fine-tuning models, and increment fine-tuning models. In the first part, I train models in order to compare with other experiments and choose some parameters. In mixed-data part, I try to train models using both source and target data. When it comes to fine-tuning part, I use target data to fine-tune source model. Finally, I try to add target data gradually into fine-tuned model.
 
 \section{Cross Validation}
 I use cross validation to validate my model and divide training/validation/testing sets. Cross validation is validation techniques for assessing how the results of a model will generalize to an independent dataset and estimating how accurately a predictive model will perform in practice. I divide dataset into 10 subsets. Then I choose one to be testing set while the rest part is training set and validation set. For the rest 9 subset, I choose 10 \% to be validation set and the rest 90 \% is training set. The two tables below shows how we divide training/validation/testing sets for source data and target data.
@@ -9,7 +9,7 @@ I use cross validation to validate my model and divide training/validation/testi
     \hfil
     \begin{minipage}[t]{0.9\textwidth}
         \includegraphics[width=\textwidth]{fig/cross.png}
-        \caption{\label{fig:parallel1} AUC for Mix Source Data and Target Data}
+        \caption{\label{fig:parallel1} AUC for mixed Source Data and Target Data}
     \end{minipage}
     \hfil
 \end{figure}
@@ -21,13 +21,13 @@ I use cross validation to validate my model and divide training/validation/testi
 \hline
 ~            & source H & source T & target H (tcia) & target T (msd)  \\ 
 \hline
-train        & 324      & 324      & -               & -               \\ 
+train        & 330      & 382      & -               & -               \\ 
 \hline
-validation   & 36       & 36       & -               & -               \\ 
+validation   & 37       & 42       & -               & -               \\ 
 \hline
-source test  & 40       & 40       & 0               & 0               \\ 
+source test  & 41       & 47       & 0               & 0               \\ 
 \hline
-target test~ & 0        & 0        & 8               & 28              \\
+target test~ & 0        & 0        & 8               & 18              \\
 \hline
 \end{tabular}
 \end{table}
@@ -38,17 +38,15 @@ target test~ & 0        & 0        & 8               & 28              \\
 \hline
 amount of data   & tar H (train) & tar T (train) & tar H (val) & tar T (val)  \\ 
 \hline
-50       & 17      & 57      & 2               & 6               \\ 
+40       & 11      & 25      & 1               & 3               \\ 
 \hline
-100 & 33       & 114       & 4               & 13               \\ 
+80 & 22       & 50       & 2               & 6               \\ 
 \hline
-150& 50       & 171       & 6               & 19               \\ 
+120 & 34       & 74       & 4               & 8               \\ 
 \hline
-200&66        & 228        & 7               & 25              \\
+160 & 45        & 99        & 5               & 11              \\
 \hline
-250& 50       & 171       & 6               & 19               \\ 
-\hline
-300&66        & 228        & 7               & 25              \\
+200 & 56       & 125       & 6               & 14               \\ 
 \hline
 \end{tabular}
 \end{table}
@@ -58,25 +56,29 @@ In this part, I train models in order to compare with other experiments and choo
 \subsection{Train Models Using Only Source Data (B1)}
 First, I want to calculate the prediction results if the model is only consider about source data. The results will compare with other experiment results to see how much other methods will improve. The amount of target data fixes 0.
 \subsection{Train Models Using Only Target Data (B2)}
-I want to calculate the prediction results if the model is only consider about target data. I want to know if how much data I need to get a sufficiently nice model. The amount of target data varies from 50 to 300.
+I want to calculate the prediction results if the model is only consider about target data. I want to know if how much data is needed to get a sufficiently nice model. The amount of target data varies from 40 to 200.
 \subsection{Choose the Number of Fixed Layers in Fine-tuning Experiments (B3)}
-All experiments in this thesis use a simplified VGG model for training,  sometimes it's better to fix some layers since the target dataset is small for fine-tuning. The goal of this experiment is to find the number of fixed layers in fine-tuning experiments. The amount of target data fixes 300.
+All experiments in this thesis use a simplified VGG model for training, however it's better to fix some layers since the target dataset is small for fine-tuning. The goal of this experiment is to find the number of fixed layers in fine-tuning experiments. The amount of target data fixes 200.
 ~\\
-\section{Mix Data Models}
-\subsection{Mix Data Models (M1)}
-In this part, we mix source and target data to train model. The amount of target data varies from 50 to 300.
+\section{Mixed Data Models}
+\subsection{Mixed Data Models (M1)}
+In this part, we mixed source and target data to train model. The amount of target data varies from 40 to 200 while the amount of source data fixed.
 ~\\
 \section{Fine-Tuning Models}
-\subsection{Fine-Tuning Models (M2)}
-In this part, I fine-tune the model trained in (B1) using target data. I fix 3 layers in this experiments. The amount of target data varies from 50 to 300.
+\subsection{Fine-Tuning Models (F1)}
+In this part, I fine-tuned the model trained in (B1) using target data. I fixed the first three layers in this experiments and use target data to modify the rest layers. The amount of target data varies from 40 to 200.
 ~\\
 \section{Increment Fine-Tuning Models}
-Suppose we get an unlabeled target dataset, we want to first label some data that best improve the model performance and use them to fine-tune model. If the performance is not good enough, we need to repeat all steps and fine-tune model using another selected dataset.
-\subsection{Fine-tuning Using Selected Target Data (I1)}
-We use selected subset to fine-tune the model. The number of patients in selected subset varies from 30 to 150.
+Suppose we get an unlabeled target dataset, we want to first label some data that best improve the model performance and use them to fine-tune model. If the AUC performance is not good enough, we need to repeat all steps and fine-tune model using another selected dataset.
 
-\subsection{Fine-tuning Using Random Target data (I2)}
-We replace the select method to random selection to valid that the selection method really works. The number of patients in selected subset varies from 30 to 150.
+\subsection{AIFT Selection Method}
+AIFT selection method is applied in increment learning. It calculate the entropy and diversity of the patch-based prediction result of each patient data, and select the data that has the maximum entropy and diversity. For each unlabeled patient data, first I split it into patch-based data. Then use the model generated by source data to predict each patch and get a list of prediction results. Secondly, if the mean value of the list is higher than 0.5, choose the top quarter of list. Otherwise choose the last quarter of list. Then calculate the entropy and diversity of the prediction list. Finally choose a set of patient data that has the highest entropy and diversity and label them. 
 
-\subsection{Gradually Fine-tuning Using Selected Target Data (I3)}
-We gradually add selected subset of target data until all target data is used to observe the performance. The amount of target data varies from 50 to 300.
+\subsection{Fine-tuning Using Selected/Random Target Data (S1/R1)}
+This experiment is applied to observe the AUC performance and validate if the selection method AIFT works compared to random selection. We replace the select method to random selection to valid that the selection method really works. 
+
+\subsection{Fine-tuning Using Different Amount of Target data (S2/R2)}
+We gradually add selected subset of target data until all target data is used to observe the AUC performance. The amount of target data varies from 40 to 200.
+
+\subsection{Fine-tuning Using Selected/Random Target Data with 66 epochs (S3/R3)}
+This experiment is the same as S1/R1 except the number of epochs. I reduce the number of epochs so that the calculation cost is the same as basic fine-tuning method. 

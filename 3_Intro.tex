@@ -1,0 +1,28 @@
+\chapter{Introduction}
+\section{Background}
+\subsection{Technical background} 
+The medical imaging field has witnessed a new generation of computer-aided systems that show incredible performance with the revival of neural networks owing to the development of parallel computing technique. A Survey on Deep Learning in Medical Image Analysis \cite{litjens2017survey} surveyed the use of deep learning techniques such as image classification, object detection, segmentation, registration.
+
+\subsection{Clinical background}
+Pancreatic cancer is a frequent cancer, but it's hard to process. Therefore few theses discussed about this cancer. Pancreatic cancer is the second most frequent cancer of the digestive system which caused 45,750 deaths in the United States in 2019 \cite{siegel2019cancer}. Pancreatic cancer is hard to process because the pancreas’ shape, size and location in the abdomen can vary seriously among patients. These factors make the model less accurate and robust. \cite{Roth2015-mi} 
+
+\subsection{Transfer Learning and Fine-Tuning}
+After developing a workable pancreatic neural network model on NTUH dataset, I use fine-tuning, a kind of transfer learning technique, to create another model on a smaller external dataset. There are a sufficiently large pancreatic dataset and a small external pancreatic dataset. Large dataset is applied to help train models for the external pancreatic dataset. Fine-tuning method is used because of this thesis Learning without Forgetting \cite{li2017learning}. The authors compare four methods, including joint training, feature extraction, learning without forget-ting and fine-tuning.  The fine-tuning method performs well in external data, and also has excellent testing efficiency.  Also a thesis in 2017 applies fine-tuning on ultrasound images and has an obvious enhance on model performance. \cite{pan2009survey}
+
+\subsection{incremental Learning}
+When training fine-tuning model using unlabeled target data, we need to select unlabeled patient data that provides information most and label them. incremental learning is applied to select patient data that provides most information. AIFT method is applied to do data selection in thesis \cite{zhou2017fine}. It chooses the data that has the highest information entropy and diversity. Fine-tuning model and data selection are applied on pancreatic images in this thesis.
+
+
+
+\subsection{Research Team Background}
+\cite{liu2020deep} had developed 2D patch-based tumor classification model and want to improve the model performance on external dataset. Our research team started working on pancreatic cancer since 2018 and had developed 2D patch-based tumor classification model based on patient data from National Taiwan University Hospital (NTUH). But when we tested our model using data from other data sources, the performance of the classification model is worse than the previous results. (In this thesis, we mainly use the area under receiver operating characteristic curve (AUC) to evaluate the performance.) Our goal is to improve the performance of model working on external data using fine-tuning technique so that we can apply our model to patient data from different datasets and different countries in the future.
+
+\section{Study objectives}
+
+Consider a source dataset (S) with $ n_S $  patients and an target dataset (T) with $  n_T  $ patients. $  n_S > n_T $. A model trained using source dataset is called source model. Our goal is 
+\begin{itemize}
+    \item Use source data and target data to build a model that has high AUC performance on target test set.
+    \item Evaluate how much target data is needed to improve the AUC performance.
+    \item Test the selection method in thesis \cite{zhou2017fine} to evaluate how it improves the AUC performance. 
+    % 
+\end{itemize}

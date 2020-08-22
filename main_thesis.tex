@@ -1,12 +1,16 @@
 \documentclass[12pt]{report}
 \usepackage{float}
+\usepackage{pdfpages}
+\usepackage{amsmath}
+\usepackage{times}
+\usepackage{mathptmx}
 \input{def}
-
 \doublespacing
 \pagestyle{plain}
 
 \begin{document}
 \onehalfspacing
+
 %\renewcommand{\baselinestretch}{1.5} 
 
 \begin{titlepage}
@@ -21,14 +25,12 @@
 
 \hspace*{1cm}~\\
 \hspace*{1cm}~\\
-\hspace*{1cm}~\\
 
 \Large{遷移學習應用於\\
 二維胰臟影像小區塊方式之腫瘤辨識\\
-Applying Transfer Learning on \\
-2D Patch-Based Healthy Pancreas and Pancreatic Tumor Classification}\\
+Applying Transfer Learning on 
+2D Patch-Based \\Healthy Pancreas and Pancreatic Tumor Classification}\\
 
-\hspace*{1cm}~\\
 \hspace*{1cm}~\\
 \hspace*{1cm}~\\
 
@@ -36,12 +38,13 @@ Applying Transfer Learning on \\
 \hspace*{1cm}~\\
 \hspace*{1cm}~\\
 
-\Large{指導教授：王偉仲 教授\\Advisor: Weichung Wang, Ph.D.}\\
+\Large{指導教授：王偉仲 教授\\Wei-Chung Wang, Ph.D.}\\
 \hspace*{1cm}~\\
 \hspace*{1cm}~\\
 
 %看要不要"日"
-\Large{中華民國 109 年 4 月 (24日)}\\ 
+\Large{中華民國 109 年 8 月}\\ 
+\Large{August, 2020}\\ 
 %February, 2020}\\
 %\today
 
@@ -49,19 +52,25 @@ Applying Transfer Learning on \\
 \end{center}
 \end{titlepage}
 
-\input{1_acknowledge}
-\clearpage
-
 \pagenumbering{roman}
 \setcounter{page}{1}
 
-%\doublespacing
 
-\input{2_abstract}
+\addcontentsline{toc}{chapter}{口試委員會審定書}
+\includepdf[pages=1,pagecommand={},width=\textwidth]{doc.pdf}
+\input{1_acknowledge}
 \clearpage
 
+%\doublespacing
+\input{2_ab_c}
+\clearpage
+\input{2_abstract}
+\clearpage
+\begin{CJK}{UTF8}{bkai}
 \tableofcontents
-
+\listoffigures
+\listoftables
+\end{CJK}
 %%\listoftables
 %%\listoffigures
 %%\listofalgorithms
@@ -74,18 +83,19 @@ Applying Transfer Learning on \\
 \setcounter{tocdepth}{1}
 
 
-\input{3_Introduction}
-\input{4_background}
+\input{3_Intro}
+\input{4_Back}
 \input{5_exp}
-\input{6_results}
+\input{6_res}
+\input{6_res_c}
 \input{7_conclusion}
 
 \printindex
 
 
-\bibliographystyle{alpha}
+\bibliographystyle{abbrv}
 \bibliography{mybib}
-
+\addcontentsline{toc}{chapter}{Bibliography}
 \input{appendix.tex}
 
 \end{document}

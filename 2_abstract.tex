@@ -3,12 +3,17 @@
 %\usepackage[a4paper,left=3cm,top=3cm,right=3cm,bottom=2cm,nohead]{geometry}
 
 \doublespacing
-
+\addcontentsline{toc}{chapter}{Abstract}
 \begin{center}
 \Large{{Abstract}}\\
 \end{center}
-((Structured summary of study design, methods, results, and conclusions))\\
-Pancreatic  cancer  is  the  second  most  frequent  cancer  of  the digestive  system, and it's an excellent choice to apply artificial intelligence to help doctors with tumor detection. \\
-I'm in Dr. Weichung Wang's research team and work on this detection problem with other master students. But all medical images, including pancreas CT, are precious and hard to get. With the help of doctors in National Taiwan University Hospital  (NTUH), we get enough data to  train an accurate convolution neural network. In the future we need to apply our model to different dataset, but the performance of detection model decreases when testing on other datasets. Our goal is to enhance the performance of model on other dataset. \\
-In this paper, we seek to answer the following core question in the context of medical image analysis: How much fine-tuning improves the performance on external dataset? How much data we need to get a certain performance? Our experiments consistently demonstrated that, as we get more and more external data, we can get a better prediction result on external data. We can at most enhance the area under the receiver operating characteristic curve (AUC) up to 0.04. This paper can help to evaluate how much external data we need to get a satisfied result and help our team to promote our neural network result worldwide.
+Pancreatic cancer is the second most frequent cancer of the digestive system, and artificial intelligence is frequently applied to help doctors with tumor detection. \\
+
+Since all medical images, including pancreas CT, are precious and hard to get, I tried transfer learning on images to improve performance on external dataset. With the help of doctors, I get enough data to train an accurate convolution neural network as source model. In the future I will apply recent model to different datasets, but the AUC performance of classification model decreases when testing on other datasets. My goal is to enhance the performance of model on other dataset. \\
+
+In this paper, I seek to answer the following core question in the context of medical image analysis: how fine-tuning improves the performance on external dataset; how much data we need to get a certain performance. Our experiments consistently demonstrated that, as we get more and more external data, we can get a better prediction result on external data. This paper can help to evaluate how many external data we need to get a satisfying result and help to promote the previous neural network model worldwide. Also, incremental learning was used to evaluate which external scan image (without a manual label) improved the performance most so that we can choose valuable data to label. \\
+
+In this thesis, I found that mixed data method and fine-tuning method can obviously enhance the model performance on external data. The selection method incremental provided can slightly improve the model performance, but overall it doesn't perform better than basic fine-tuning. \\
+
+Key words : Medical Images, Artificial Intelligence, Neural Network, Deep Learning, Transfer Learning
 

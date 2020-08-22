@@ -1,0 +1,136 @@
+\chapter{Methods}
+ 
+\section{Previous Experiment and Results}
+The thesis is based on the study \cite{liu2020deep}. It provided a proof of concept that CNN can accurately distinguish PC on portal venous CT images. The data criteria, source, format, model and a part of training method of this thesis are the same as \cite{liu2020deep}.
+
+But when we apply the pancreatic model on external data, the performance decrease. The thesis focuses on how to improve the model performance using transfer learning method.
+
+
+\section{Study Design}
+\subsection{Study Goal}
+Consider a source dataset and an target dataset. Source dataset has sufficient data to train a model, and target dataset doesn't have sufficient data to train a workable model. The purpose of the thesis is
+\begin{itemize}
+    \item Use source data and target data to build a model that has high performance on target test set.
+    \item Evaluate how many patients are needed to improve the performance.
+    \item The selection method in thesis \cite{zhou2017fine} selects a set of target data that can help more on fine-tuning model. 
+    % 
+\end{itemize}
+
+
+\section{Data}
+\subsection{Data Source}
+This thesis applies three datasets. All of them are pancreatic CT images.
+\begin{itemize}
+    \item {\bf National Taiwan University Hospital\cite{liu2020deep} (ntuh, source data)} \\including both healthy (400) and tumor (400) CT scans. 
+    \item {\bf Medical Segmentation Decathlon\cite{simpson2019large} (msd, target data)}\\ including only tumor (182) CT scans. 
+    \item {\bf The Cancer Imaging Archive\cite{roth} (tcia, target data)}\\ including only healthy (82) CT scans. 
+\end{itemize}
+
+\subsection{Data Criteria}
+\subsubsection{National Taiwan University Hospital}
+CT images with histologically-/cytologically-confirmed pancreatic adenocarcinoma were applied in this study.
+
+After removing patients’ personal identity, all CT images were examined by two radiologists Kao-Lang Liu and Po-Ting Chen. A diagnostic report would be selected if definite description of pancreatic tumor in included. Otherwise the report would be considered as a missed data. 408 PC patients and 471 negative patients diagnosed from January 1, 2006 to December 31, 2018 were applied in this study.
+
+We performed CT examinations using six scanners listed below
+\begin{table}[H]
+\centering 
+\caption{Scanners}
+
+\begin{tabular}{|l|l|l|l|} 
+\hline
+Machine  & Company & City & Country  \\ 
+\hline
+Brilliance iCT 256 & Philips Healthcare & Best & Netherlands           \\ 
+\hline
+Sensation 64 & Siemens Healthcare & Forchheim & Germany              \\ 
+\hline
+SOMATOM Definition AS+ & Siemens Healthcare & Forchheim & Germany               \\ 
+\hline
+Aquilion one & Toshiba & Tochigi & Japan              \\
+\hline
+Revolution CT &  GE Medical system & Milwaukee & US              \\
+\hline
+LightSpeed VCT & GE Medical system & Milwaukee & US              \\
+\hline
+\end{tabular}
+\end{table}
+
+with 100, 120, 130 kV or automatic mA control without extra noise reduction processes. The slice thicknes s was 0.7 mm to 1.5 mm, and the image size fixed 512 $ \times $ 512 pixels. The portal venous scan was obtained at 70-80 seconds after intravenous administration of contrast medium. The amount of the contrast medium (mL) was calculated by multiplying the body weight (in kilograms) by 1.5, but no more than 150 mL. All images were reconstructed into 5 mm slices for further analysis. \cite{liu2020deep}
+
+In this study, patients or the public were not involved in the design, or conduct, or reporting, or dissemination. 
+
+\subsubsection{Medical Segmentation Decathlon}
+Patients undergoing resection of pancreatic masses is in the dataset. Images were from Memorial Sloan Kettering Cancer Center (New York, NY, USA). There were 420 portal venous phase CT scans iin the dataset . The scans were obtained with the following reconstruction and acquisition parameters: automatic tube current modulation range, 220–380 mA; 120 kVp; and axial slices
+reconstructed at 2.5 mm intervals. The pancreatic tumor were manually segmented in each slice by an experienced radiologist using the Scout application. \cite{simpson2019large} 
+
+
+\subsubsection{The Cancer Imaging Archive}
+The National Institutes of Health Clinical Center provided 82 abdominal contrast enhanced 3D CT scans from 53 male and 27 female patients. Seventeen of patients are healthy kidney donors scanned prior to nephrectomy. The rest of 65 patients were selected by a radiologist from healthy patients. Patients' ages range from 18 to 76 years. The size of CT scans fixed 512 $\times$ 512 pixels with varying pixel sizes and slice thickness between 1.5 - 2.5 mm. The CT scans were acquired on Philips and Siemens MDCT scanners (120 kVp tube voltage). A medical student manually performed slice-by-slice segmentation of all scans as ground-truth and were verified/modified by an expert radiologist. 
+\cite{roth}
+
+\subsection{Data Format}
+Each CT scan contained three images: one pancreas image, one non-cancerous pancreatic label and one cancerous pancreatic label. Figure showed one set of images. (add images)
+
+
+
+\subsection{Data Partitions}
+
+
+A window with width 250 Hounsfield unit (HU) and length 75 HU is applied to get 2d square CT images patches. All patches are normalized to [0,1] using linear interpolation and the patches which are neither pancreas nor tumor are excluded. Then move the window with step size half of the patch size to generate overlapped data to increase the variance and size of the dataset. Patches including any pancreatic cancer are defined to be cancerous patches while the rest are defined to be healthy ones.
+
+Two experienced abdominal radiologists Kao-Lang Liu and Po-Ting Chen with at least 5 years of working experience manually labeled all CT images using software (3D slicer version 4.8.1) for further experiments. Since the border between the pancreas and surrounding tissue is not clear, two doctors jointly review all images.
+
+All axial CT images that contained the pancreas or pancreatic cancer were manually labeled for further processing using an open source software (3D Slicer version 4.8.1) by one of two experienced abdominal radiologists (PTC and KLL) with at least 5 years of working experience. Because of the indistinct border of pancreas with the surrounding tissue, all labeled images were jointly reviewed for consensus by the radiologists.
+ The window width and window level of all CT scans were 250 Hounsfield unit (HU) and 75 HU, respectively. Linear interpolation was used to normalize all images to [0, 1]. The region that were neither pancreas nor tumor were excluded from images. The images were then cropped into 2D square patches using the moving window method. The moving distance was set as half of the patch dimension to generate overlapping patches in order to increase the variation and size of training data. The patches which contained any pancreatic cancer were defined as cancerous, whereas patches that contained only non-cancerous pancreas were defined as non-cancerous.
+ \\
+A deep CNN was trained to predict the probability that a patch harbors PC and classify the patch as cancerous or non-cancerous using all patches of the training/validation set. The optimal patch size was determined by comparing the result of models trained with different sizes patches. \cite{liu2020deep}
+
+\section{Model}
+The CNN model in this thesis was modified from VGG network which was a widely-used neural network in image classification. Weighted binary cross-entropy was selected as the loss function since the classification problem was imbalanced. Table 1 provides the details of the model, and the layer structures, kernel sizes, channels, and output sizes of the network were included in the table. \cite{liu2020deep}
+
+\begin{table}[H]
+\centering
+\caption{CNN model Structure}
+\begin{tabular}{|l|l|l|} 
+\hline
+Layer (type)              & Output Shape      & Parameter  \\ 
+\hline
+conv2d 1 (Conv2D)             & (None, 50, 50, 16) &  416 \\
+\hline
+conv2d 2 (Conv2D)        & (None, 50, 50, 32)                        & 12832        \\
+\hline
+max pooling2d 1 (MaxPooling2) &  (None, 50, 50, 32) &  0         \\
+\hline
+conv2d 3 (Conv2D)                                    & (None, 25, 25, 64)                        & 18496                            \\
+\hline
+conv2d 4 (Conv2D)             & (None, 25, 25, 64) & 36928     \\
+\hline
+max pooling2d 2 (MaxPooling2)                        & (None, 12, 12, 64)                        & 0                                \\
+\hline
+conv2d 5 (Conv2D)                                    & (None, 12, 12, 128)                       & 73856                            \\
+\hline
+conv2d 6 (Conv2D)                                    & (None, 12, 12, 128)                       & 147584                           \\
+\hline
+max pooling2d 3 (MaxPooling2)                        & (None, 6, 6, 128)                         & 0                                \\
+\hline
+flatten 1 (Flatten)                                  & (None, 4608)                              & 0                                \\
+\hline
+dense 1 (Dense)                                      & (None, 32)                                & 147488                           \\
+\hline
+dropout 1 (Dropout)                                  & (None, 32)                                & 0                                \\
+\hline
+dense 2 (Dense)                                      & (None, 32)                                & 1056                             \\
+\hline
+dense 3 (Dense)                                      & (None, 1)                                 & 33 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\section{Training}
+Two callbacks were used to monitor the validation loss during the process in order to optimize model performance. 
+First, if loss did not decrease within ten iterations, the learning rate would decrease to 10 percent. After that, early stopping callback would break the training process after the validation loss remained stable after 40 iterations to avoid overfitting. Python (version 3.6.8) using Keras (version 2.2.4) and Tensorflow (version 1.7.0) libraries were used to write the codes.
+
+The number of epochs of most experiments is 200, but for incremental learning experiments, the number changes because of different training process. \cite{liu2020deep}
+
